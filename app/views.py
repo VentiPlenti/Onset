@@ -68,6 +68,7 @@ def evolve():
     metric = metric_functions[request.args['metric']]
 
     try:
+        print("Error here")
         words, rules = engine.run_engine(words, generations, transcriptions,
                                          reverse, metric, optimisation_function)
     except Exception as e:

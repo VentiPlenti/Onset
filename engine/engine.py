@@ -81,6 +81,7 @@ def run_engine(words,
     Returns a list of evolved word strings and a list of applied rules.
 
     '''
+    print("Error before function starts")
     # Apply the given transcription rules
     words = rewrite(words, rewrite_rules, to='ipa')
 

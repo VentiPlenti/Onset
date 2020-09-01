@@ -1,5 +1,5 @@
 from functools import partial, lru_cache
-from Levenshtein import hamming
+from Levenshtein import distance
 
 feature_order = ['syllabic',
                  'stress',
@@ -59,7 +59,10 @@ def segment_match(feature_strings, target_segment):
         return deparse_cache[target_feature_string]
 
     # Find the distance of the initial candidate to serve as a benchmark.
-    best_distance = hamming(target_feature_string, feature_strings[0][1])
+    print(len(target_feature_string))
+    print("Error on line 69")
+    best_distance = distance(target_feature_string, feature_strings[0][1])
+    print("Error before line 63")
     best_strings = [feature_strings[0][0]]
 
     # Loop through the rest of the available strings. If the distance between
@@ -67,7 +70,7 @@ def segment_match(feature_strings, target_segment):
     # next string. Otherwise, if it's the same add it to best_strings, or if
     # it's less overwrite best_strings.
     for string in feature_strings[1:]:
-        new_distance = hamming(target_feature_string, string[1])
+        new_distance = distance(target_feature_string, string[1])
 
         if new_distance > best_distance:
             continue
