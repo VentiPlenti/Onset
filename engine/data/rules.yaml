@@ -6,15 +6,19 @@
 # - before (optional): the features present in the preceding segment
 #     positive: list of positive features
 #     negative: list of negative features
+#     zero: list of unapplicable features
 # - after (optional): the features present in the succeeding segment
 #     positive: list of positive features
 #     negative: list of negative features
+#     zero: list of unapplicable features
 # - conditions (optional): the features present in the changed segment
 #     positive: list of positive features
 #     negative: list of negative features
+#     zero: list of unapplicable features
 # - applies (obligatory): the features to apply to the changed segment
 #     positive: list of positive features
 #     negative: list of negative features
+#     zero: list of unapplicable features
 
 ---
 ##############################################################################
@@ -243,7 +247,35 @@
   applies:
     positive:
       - syllabic
-
+      
+- name: Lateral Vocalization
+  description: Lateral approximants become semivowels at the end of words.
+  last: true
+  conditions:
+    positive:
+      - lateral
+      - approximant
+      - coronal
+      - consonantal
+    negative:
+      - syllabic
+  applies:
+    positive:
+      - high
+      - back
+      - tense
+      - dorsal
+      - labial
+    negative:
+      - consonantal
+      - coronal
+      - low
+      - front
+    zero:
+      - anterior
+      - distributed
+      - strident
+      
 - name: Approximation
   description: Voiced continuants become approximants between vowels.
   before:
@@ -371,6 +403,23 @@
   applies:
     positive:
       - deletion
+      
+- name: Nasal Elision
+  description: Nasal consonants are lost after nasal vowels.
+  before:
+    positive:
+      - syllabic
+      - nasal
+  after:
+    negative:
+      - syllabic
+  conditions:
+    positive:
+      - consonantal
+      - nasal
+  applies:
+    positive:
+      - deletion
 
 ##############################################################################
 ## CONSONANTS - FORTITION
@@ -443,7 +492,7 @@
 ##############################################################################
 ## VOWELS
 ##############################################################################
-- name: Vowel Nasalization
+- name: Progressive Vowel Nasalization
   description: Vowels become nasalized after nasal consonants.
   conditions:
     positive:
@@ -451,6 +500,20 @@
     negative:
       - nasal
   before:
+    positive:
+      - nasal
+  applies:
+    positive:
+      - nasal
+
+- name: Regressive Vowel Nasalization
+  description: Vowels become nasalized before nasal consonants.
+  conditions:
+    positive:
+      - syllabic
+    negative:
+      - nasal
+  after:
     positive:
       - nasal
   applies:

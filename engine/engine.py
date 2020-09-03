@@ -81,7 +81,6 @@ def run_engine(words,
     Returns a list of evolved word strings and a list of applied rules.
 
     '''
-    print("Error before function starts")
     # Apply the given transcription rules
     words = rewrite(words, rewrite_rules, to='ipa')
 
@@ -183,12 +182,19 @@ def reverse_rule(rule):
         reversed_rule['after'] = rule['after']
 
     # Invert application
+    # Forker's note: Zero features made this a code a lot more ugly. Sorry about that.
     new_applies = {}
     if 'positive' in rule['applies']:
         new_applies['negative'] = list(set(rule['applies']['positive']))
+        new_applies['zero'] = list(set(rule['applies']['positive']))
 
     if 'negative' in rule['applies']:
         new_applies['positive'] = list(set(rule['applies']['negative']))
+        new_applies['zero'] = list(set(rule['applies']['negative']))
+    
+    if 'zero' in rule['applies']:
+        new_applies['positive'] = list(set(rule['applies']['zero']))
+        new_applies['negative'] = list(set(rule['applies']['zero']))
 
     # The new conditions are the same as the old application features.
     # We must use a deep copy to prevent in-place modification.
@@ -197,11 +203,13 @@ def reverse_rule(rule):
     # Construct set containing all features present in the new conditions.
     new_conditions_set = set(
         new_conditions.get('positive', []) + new_conditions.get('negative',
-                                                                []))
+                                                                []) + new_conditions.get('zero', []))
 
     # For each feature in the old conditions, if it isn't in the new conditions
     # add it, keeping the same polarity. This catches conditions that aren't
     # changed by the rule.
+    
+    #Forker's note: Help.
     for feature in rule['conditions'].get('positive', []):
         if feature not in new_conditions_set:
             if 'positive' in new_conditions:
@@ -214,6 +222,12 @@ def reverse_rule(rule):
                 new_conditions['negative'].append(feature)
             else:
                 new_conditions['negative'] = [feature]
+    for feature in rule['conditions'].get('zero', []):
+        if feature not in new_conditions_set:
+            if 'negative' in new_conditions:
+                new_conditions['zero'].append(feature)
+            else:
+                new_conditions['zero'] = [feature]
 
     reversed_rule['conditions'] = new_conditions
     reversed_rule['applies'] = new_applies

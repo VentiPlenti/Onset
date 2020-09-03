@@ -11,14 +11,11 @@ class Word:
 
     def __key(self):
         '''The key of a Word is a tuple containing a tuple for each segment,
-        where the first item is the set of segment.positive and the second is
-        the set of segment.negative. The function is necessary to use in both
-        equality testing and hashing; for this reason the hashable frozenset
-        is used.
-
+        where the first item is the set of segment.positive, the second is
+        the set of segment.negative, and the third is the set of segment.zero. The function is necessary 
+        to use in both equality testing and hashing; for this reason the hashable frozenset is used.
         '''
-        return tuple((frozenset(segment.positive), frozenset(segment.negative))
-                     for segment in self.segments)
+        return tuple((frozenset(segment.positive), frozenset(segment.negative), frozenset(segment.zero)) for segment in self.segments)
 
     def __eq__(self, other):
         '''Compares Word objects by ensuring each segment is equal.'''
@@ -74,7 +71,8 @@ class Word:
 
         # Create a Segment from the rule to add to current segments
         rule_segment = Segment(rule['applies'].get('positive', []),
-                               rule['applies'].get('negative', []))
+                               rule['applies'].get('negative', []),
+                               rule['applies'].get('zero', []))
 
         for i in range(len(self.segments)):
             if self.index_applicable(i, rule):

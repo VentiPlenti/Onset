@@ -59,10 +59,7 @@ def segment_match(feature_strings, target_segment):
         return deparse_cache[target_feature_string]
 
     # Find the distance of the initial candidate to serve as a benchmark.
-    print(len(target_feature_string))
-    print("Error on line 69")
     best_distance = distance(target_feature_string, feature_strings[0][1])
-    print("Error before line 63")
     best_strings = [feature_strings[0][0]]
 
     # Loop through the rest of the available strings. If the distance between
