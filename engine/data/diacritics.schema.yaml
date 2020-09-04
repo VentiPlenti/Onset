@@ -21,6 +21,10 @@ sequence:
             type: seq
             sequence:
               - type: str
+          "zero":
+            type: seq
+            sequence:
+              - type: str
       "applies":
         type: map
         mapping:
@@ -29,6 +33,10 @@ sequence:
             sequence:
               - type: str
           "negative":
+            type: seq
+            sequence:
+              - type: str
+          "zero":
             type: seq
             sequence:
               - type: str

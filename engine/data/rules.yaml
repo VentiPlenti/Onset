@@ -579,6 +579,38 @@
   applies:
     positive:
       - back
+      
+- name: Front Centralization
+  description: Front vowels are centralized before center segments.
+  conditions:
+    positive:
+      - syllabic
+      - front
+    negative:
+      - back
+  after:
+    negative:
+      - front
+      - back
+  applies:
+    negative:
+      - front
+      
+- name: Back Centralization
+  description: Back vowels are centralized before center segments.
+  conditions:
+    positive:
+      - syllabic
+      - back
+    negative:
+      - front
+  after:
+    negative:
+      - front
+      - back
+  applies:
+    negative:
+      - back
 
 - name: Rounding
   description: Unrounded vowels are rounded after labialised consonants.

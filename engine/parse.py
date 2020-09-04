@@ -101,7 +101,8 @@ def token_to_segment(token, segment_list, diacritic_list):
     # Add each diacritic feature to the segment
     for diacritic in diacritics:
         diacritic_segment = Segment(diacritic['applies'].get('positive', []),
-                                    diacritic['applies'].get('negative', []))
+                                    diacritic['applies'].get('negative', []),
+                                    diacritic['applies'].get('zero', []))
         segment = segment + diacritic_segment
 
     return segment
