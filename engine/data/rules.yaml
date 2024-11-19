@@ -693,3 +693,40 @@
   applies:
     negative:
       - syllabic
+
+  - name: High Tone
+  description: Vowels become high tone in stressed syllables.
+  before:
+    positive:
+      - syllabic
+      - stress
+      - tense
+  conditions:
+    negative:
+      - consonantal
+      - sonorant
+      - lowtone
+  applies:
+    positive:
+      - hightone
+    negative:
+      - lowtone
+      - back
+      
+- name: Low Tone
+  description: Vowels become low tone in unstressed syllables.
+  before:
+    positive:
+      - syllabic
+      - stress
+      - stress
+  conditions:
+    negative:
+      - consonantal
+      - sonorant
+  applies:
+    positive:
+      - lowtone
+    negative:
+      - hightone
+      - front
