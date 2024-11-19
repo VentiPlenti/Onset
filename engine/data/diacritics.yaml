@@ -239,3 +239,33 @@
       - constrictedglottis
     negative:
       - spreadglottis
+      
+- name: low tone
+  IPA: "\u0340"
+  conditions:
+    positive:
+      - long
+    negative:
+      - consonantal
+      - stress
+  applies:
+    positive:
+      - lowtone
+    negative:
+      - hightone
+      
+- name: high tone
+  IPA: "\u0301"
+  conditions:
+    positive:
+      - stress
+      - syllabic
+    negative:
+      - consonantal
+  applies:
+    positive:
+      - hightone
+    negative:
+      - lowtone
+      
+
